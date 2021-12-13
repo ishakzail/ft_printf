@@ -10,54 +10,53 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "ft_printf.h"
 
-void	ft_if(va_list args, const char *fmt)
+int	ft_if(va_list args, const char *fmt)
 {
-	const char *str;
-	char		c;
-	int			d;
+	int	len;
+
+	len = 0;
 	if (*fmt == '%')
-		ft_putchar('%');
-	else if (*fmt == 'd')
-	{
-		d = va_arg(args, int);
-		ft_putnbr(d);
-	}
+		len += ft_putchar('%');
+	else if (*fmt == 'd' || *fmt == 'i')
+		len += ft_putnbr(va_arg(args, int));
 	else if (*fmt == 'c')
-	{
-		c = va_arg(args, int);
-		ft_putchar(c);
-	}
+		len += ft_putchar(va_arg(args, int));
 	else if (*fmt == 's')
-	{
-		str = va_arg(args,const char *);
-		ft_putstr(str);
-	}
+		len += ft_putstr(va_arg(args,const char *));
+	else if (*fmt == 'X')
+		len += ft_hex_upper(va_arg(args, int));
+	else if (*fmt == 'x')
+		len += ft_hex_lower(va_arg(args, int));
+	return (len);
 }
 
 int	ft_printf(const char *fmt, ...)
 {
 	va_list	args;
+	int		len;
 
+	len = 0;
 	va_start(args, fmt);
 	while (*fmt != '\0')
 	{
 		if (*fmt == '%')
 		{
 			fmt++;
-			ft_if(args,fmt);
+			len += ft_if(args,fmt);
 		}
+		else
+		len += ft_putchar(*fmt);
 		fmt++;
 	}
 	va_end(args);	
-	return (1);
+	return (len);
 }
-int main()
-{
-	
-	ft_printf("%d%s%c",42," Bonjour ! ", 'e');
-	//ft_putchar('c');
-	return (0);
-}
+// int main()
+// {
+// 	ft_printf("%x",15);
+// 	printf("\n---------- SYS ----------\n");
+// 	printf("%x",-3);
+// 	return (0);
+// }

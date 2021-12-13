@@ -10,14 +10,14 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprint.a
+NAME = libftprintf.a
 HEADER = ft_printf.h
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 AR = ar -rcs
 RM = rm -f
 
-MANDATORY = ft_printf.c ft_putchar.c ft_putstr.c ft_putnbr.c \
+MANDATORY = ft_printf.c ft_putchar.c ft_putstr.c ft_putnbr.c  ft_hex_upper.c  ft_hex_lower.c \
 
 OBJS = $(MANDATORY:.c=.o)
 
