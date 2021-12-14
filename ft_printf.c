@@ -29,6 +29,8 @@ int	ft_if(va_list args, const char *fmt)
 		len += ft_hex_upper(va_arg(args, int));
 	else if (*fmt == 'x')
 		len += ft_hex_lower(va_arg(args, int));
+	else if (*fmt == 'p')
+		len += ft_putptr(va_arg(args, int));
 	return (len);
 }
 
@@ -47,7 +49,7 @@ int	ft_printf(const char *fmt, ...)
 			len += ft_if(args,fmt);
 		}
 		else
-		len += ft_putchar(*fmt);
+			len += ft_putchar(*fmt);
 		fmt++;
 	}
 	va_end(args);	
@@ -55,8 +57,9 @@ int	ft_printf(const char *fmt, ...)
 }
 // int main()
 // {
-// 	ft_printf("%x",15);
+// 	int a = 1;
+// 	ft_printf("%p",&a);
 // 	printf("\n---------- SYS ----------\n");
-// 	printf("%x",-3);
+// 	printf("%p",&a);
 // 	return (0);
 // }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hex_upper.c                                     :+:      :+:    :+:   */
+/*   ft_putptr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: izail <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 13:55:54 by izail             #+#    #+#             */
-/*   Updated: 2021/12/13 13:55:57 by izail            ###   ########.fr       */
+/*   Created: 2021/12/14 18:23:23 by izail             #+#    #+#             */
+/*   Updated: 2021/12/14 18:23:24 by izail            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,29 @@ static int ft_len(unsigned int num)
 	return (len);
 }
 
-int   ft_hex_upper(unsigned int n)
-{   
-    char    *hex;
-
-    hex = "0123456789ABCDEF";
-    if (n < 16)
-    {
-        ft_putchar(hex[n]);
-    }
+static void	ft_put_ptr(unsigned long long num)
+{
+	if (num >= 16)
+	{
+		ft_put_ptr(num / 16);
+		ft_put_ptr(num % 16);
+	}
     else
-    {
-        ft_hex_upper(n / 16);
-        ft_hex_upper(n % 16);
-    }
-    return (ft_len(n));
+        ft_putchar(LOW_HEX[num]);
+}
+
+int	ft_putptr(unsigned long long ptr)
+{
+	int	len;
+
+	len = 0;
+	len += ft_putstr("0x");
+	if (ptr == 0)
+		len += write(1, "0", 1);
+	else
+	{
+		ft_put_ptr(ptr);
+		len += ft_len(ptr);
+	}
+	return (len);
 }

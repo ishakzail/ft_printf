@@ -19,12 +19,14 @@
 #include<stdio.h>
 #include<stdarg.h>
 
+#define LOW_HEX "0123456789abcdef"
+
 int ft_printf(const char *fmt, ...);
 int ft_putstr(const char *str);
 int ft_putchar(char c);
 int ft_putnbr(int n);
-int ft_hex_upper(int n);
-int ft_hex_lower(int n);
-
+int ft_hex_upper(unsigned int n);
+int ft_hex_lower(unsigned int n);
+int	ft_putptr(unsigned long long ptr);
 
 #endif
