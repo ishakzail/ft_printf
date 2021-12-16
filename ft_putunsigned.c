@@ -1,44 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hex_upper.c                                     :+:      :+:    :+:   */
+/*   ft_putunsinged.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: izail <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 13:55:54 by izail             #+#    #+#             */
-/*   Updated: 2021/12/15 20:17:02 by izail            ###   ########.fr       */
+/*   Created: 2021/12/15 18:09:57 by izail             #+#    #+#             */
+/*   Updated: 2021/12/15 20:27:34 by izail            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_len(unsigned int num)
+int	ft_putunsigned(unsigned int nbr)
 {
 	int	len;
 
 	len = 0;
-	if (num < 0)
-		len++;
-	if (num == 0)
-		return (1);
-	while (num != 0)
+	if (nbr < 0)
 	{
-		len++;
-		num = num / 16;
+		nbr *= -1;
+		len += ft_putchar('-');
 	}
+	if (nbr >= 10)
+	{
+		len += ft_putunsigned(nbr / 10);
+	}
+	len += ft_putchar((nbr % 10) + '0');
 	return (len);
-}
-
-int	ft_hex_upper(unsigned int n)
-{
-	if (n < 16)
-	{
-		ft_putchar(UP_HEX[n]);
-	}
-	else
-	{
-		ft_hex_upper(n / 16);
-		ft_hex_upper(n % 16);
-	}
-	return (ft_len(n));
 }

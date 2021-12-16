@@ -17,9 +17,9 @@ int	ft_putstr(const char *str)
 	int	i;
 
 	i = 0;
-	if (!str)
+	if (str == NULL)
 	{
-		write(1, "(null)", 6);
+		i += write(1, "(null)", 6);
 		return (i);
 	}
 	while (str[i] != '\0')

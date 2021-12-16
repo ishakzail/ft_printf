@@ -6,13 +6,13 @@
 /*   By: izail <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 16:04:01 by izail             #+#    #+#             */
-/*   Updated: 2021/12/11 14:13:40 by izail            ###   ########.fr       */
+/*   Updated: 2021/12/15 22:14:48 by izail            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_if(va_list args, const char *fmt)
+static int	ft_if(va_list args, const char *fmt)
 {
 	int	len;
 
@@ -24,13 +24,15 @@ int	ft_if(va_list args, const char *fmt)
 	else if (*fmt == 'c')
 		len += ft_putchar(va_arg(args, int));
 	else if (*fmt == 's')
-		len += ft_putstr(va_arg(args,const char *));
+		len += ft_putstr(va_arg(args, const char *));
 	else if (*fmt == 'X')
-		len += ft_hex_upper(va_arg(args, int));
+		len += ft_hex_upper(va_arg(args, unsigned int));
 	else if (*fmt == 'x')
-		len += ft_hex_lower(va_arg(args, int));
+		len += ft_hex_lower(va_arg(args, unsigned int));
 	else if (*fmt == 'p')
-		len += ft_putptr(va_arg(args, int));
+		len += ft_putptr(va_arg(args, unsigned long long));
+	else if (*fmt == 'u')
+		len += ft_putunsigned(va_arg(args, unsigned int));
 	return (len);
 }
 
@@ -46,20 +48,12 @@ int	ft_printf(const char *fmt, ...)
 		if (*fmt == '%')
 		{
 			fmt++;
-			len += ft_if(args,fmt);
+			len += ft_if(args, fmt);
 		}
 		else
 			len += ft_putchar(*fmt);
 		fmt++;
 	}
-	va_end(args);	
+	va_end(args);
 	return (len);
 }
-// int main()
-// {
-// 	int a = 1;
-// 	ft_printf("%p",&a);
-// 	printf("\n---------- SYS ----------\n");
-// 	printf("%p",&a);
-// 	return (0);
-// }
